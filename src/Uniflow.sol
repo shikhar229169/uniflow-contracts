@@ -22,8 +22,6 @@ contract Uniflow is ReceiverTemplate {
 
     // Struct
     struct TokenConfig {
-        // address destinationToken;
-        // uint256 destinationChainId;
         address receiver;
         uint256 minAmountToTrigger;
     }
@@ -37,8 +35,6 @@ contract Uniflow is ReceiverTemplate {
     IRouterClient public s_ccipRouter;
 
     IERC20 public s_linkToken;
-
-    bytes public s_latestReport;
 
     // Events
     event UniflowApproval(address user, bool approval);
@@ -178,24 +174,6 @@ contract Uniflow is ReceiverTemplate {
         } else if (op == 0x02) {
             _performChainlinkCCIPBridgeOp(report[1:]);
         }
-    }
-
-    uint256 public noReport = 0;
-    uint256 public noMatch = 0;
-
-    function processReport(bytes calldata report) external onlyOwner {
-        if (report.length == 0) {
-            noReport++;
-            return;
-        }
-
-        bytes1 op = report[0];
-        if (op == 0x01) {
-            _performAcrossBridgeOp(report[1:]);
-            return;
-        }
-
-        noMatch++;
     }
 
     function _onlyConfiguredToken(address token) internal view {
