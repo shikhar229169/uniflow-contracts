@@ -2,8 +2,8 @@
 
 pragma solidity 0.8.34;
 
-import { Script } from "forge-std/Script.sol";
-import { Uniflow } from "../src/Uniflow.sol";
+import {Script} from "forge-std/Script.sol";
+import {Uniflow} from "../src/Uniflow.sol";
 
 contract DeployUniflow is Script {
     function run() external returns (Uniflow) {
